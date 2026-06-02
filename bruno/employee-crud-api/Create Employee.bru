@@ -1,0 +1,24 @@
+meta {
+  name: Create Employee
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/employees
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "empId": 105,
+    "empName": "Neha Singh",
+    "address": "Pune, Maharashtra",
+    "dateOfBirth": "1998-06-21"
+  }
+}

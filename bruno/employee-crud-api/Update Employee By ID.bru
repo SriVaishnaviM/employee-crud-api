@@ -1,0 +1,23 @@
+meta {
+  name: Update Employee By ID
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/employees/{{empId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "empName": "Aarav Sharma",
+    "address": "Delhi, India",
+    "dateOfBirth": "1995-04-12"
+  }
+}

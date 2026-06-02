@@ -1,0 +1,11 @@
+meta {
+  name: Delete Employee By ID
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/api/employees/{{empId}}
+  body: none
+  auth: none
+}
