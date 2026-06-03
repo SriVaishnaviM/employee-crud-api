@@ -1,0 +1,24 @@
+meta {
+  name: Duplicate Employee ID Error
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/employees
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "empId": 101,
+    "empName": "Duplicate Aarav",
+    "address": "Hyderabad, Telangana",
+    "dateOfBirth": "1995-04-12"
+  }
+}

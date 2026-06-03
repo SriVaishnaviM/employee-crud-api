@@ -129,6 +129,91 @@ The collection includes:
 - `Create Employee`
 - `Update Employee By ID`
 - `Delete Employee By ID`
+- `Duplicate Employee ID Error`
+- `Delete Missing Employee Error`
+- `Empty Employee Details Error`
+
+Recommended test flow:
+
+1. Run `Get All Employees`.
+   Expected result: `200 OK`.
+2. Run `Get Employee By ID`.
+   Expected result: `200 OK`.
+3. Run `Create Employee`.
+   Expected result: `201 Created`.
+4. Run `Update Employee By ID`.
+   Expected result: `200 OK`.
+5. Run `Delete Employee By ID`.
+   Expected result: `200 OK`.
+6. Run `Duplicate Employee ID Error`.
+   Expected result: `409 Conflict` because the employee ID already exists.
+7. Run `Delete Missing Employee Error`.
+   Expected result: `404 Not Found` because employee `9999` does not exist.
+8. Run `Empty Employee Details Error`.
+   Expected result: `400 Bad Request` with validation errors.
+
+## Bruno Test Screenshots
+
+Add Bruno screenshots in the `docs/screenshots` folder using these file names:
+
+```text
+docs/screenshots/01-create-employee.png
+docs/screenshots/02-get-all-employees.png
+docs/screenshots/03-get-employee-by-id.png
+docs/screenshots/04-update-employee.png
+docs/screenshots/05-delete-employee.png
+docs/screenshots/06-duplicate-id-error.png
+docs/screenshots/07-delete-missing-id-error.png
+docs/screenshots/08-empty-employee-error.png
+```
+
+### 1. Create Employee
+
+Expected result: `201 Created`
+
+![Create Employee Bruno Test](docs/screenshots/01-create-employee.png)
+
+### 2. Get All Employees
+
+Expected result: `200 OK`
+
+![Get All Employees Bruno Test](docs/screenshots/02-get-all-employees.png)
+
+### 3. Get Employee By ID
+
+Expected result: `200 OK`
+
+![Get Employee By ID Bruno Test](docs/screenshots/03-get-employee-by-id.png)
+
+### 4. Update Employee By ID
+
+Expected result: `200 OK`
+
+![Update Employee Bruno Test](docs/screenshots/04-update-employee.png)
+
+### 5. Delete Employee By ID
+
+Expected result: `200 OK`
+
+![Delete Employee Bruno Test](docs/screenshots/05-delete-employee.png)
+
+### 6. Duplicate ID Creation Error
+
+Expected result: `409 Conflict`
+
+![Duplicate Employee ID Bruno Test](docs/screenshots/06-duplicate-id-error.png)
+
+### 7. Delete ID Which Does Not Exist
+
+Expected result: `404 Not Found`
+
+![Delete Missing Employee Bruno Test](docs/screenshots/07-delete-missing-id-error.png)
+
+### 8. Empty Employee Details Creation
+
+Expected result: `400 Bad Request`
+
+![Empty Employee Details Bruno Test](docs/screenshots/08-empty-employee-error.png)
 
 ## Example JSON Output
 
