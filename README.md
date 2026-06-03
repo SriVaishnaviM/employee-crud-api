@@ -154,19 +154,6 @@ Recommended test flow:
 
 ## Bruno Test Screenshots
 
-Add Bruno screenshots in the `docs/screenshots` folder using these file names:
-
-```text
-docs/screenshots/01-create-employee.png
-docs/screenshots/02-get-all-employees.png
-docs/screenshots/03-get-employee-by-id.png
-docs/screenshots/04-update-employee.png
-docs/screenshots/05-delete-employee.png
-docs/screenshots/06-duplicate-id-error.png
-docs/screenshots/07-delete-missing-id-error.png
-docs/screenshots/08-empty-employee-error.png
-```
-
 ### 1. Create Employee
 
 Expected result: `201 Created`
