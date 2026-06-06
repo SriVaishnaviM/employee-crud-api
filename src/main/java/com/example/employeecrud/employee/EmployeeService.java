@@ -2,6 +2,8 @@ package com.example.employeecrud.employee;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -43,5 +45,40 @@ public class EmployeeService {
     public void deleteEmployee(Long empId) {
         Employee employee = getEmployeeById(empId);
         employeeRepository.delete(employee);
+    }
+
+    public EmployeeEligibilityResponse getEmployeeEligibility(Long empId) {
+        Employee employee = getEmployeeById(empId);
+        int age = Period.between(employee.getDateOfBirth(), LocalDate.now()).getYears();
+
+        if (age < 25) {
+            return new EmployeeEligibilityResponse(
+                    empId,
+                    "Employee age is " + age + ", which is below 25",
+                    "ineligible"
+            );
+        }
+
+        if (age <= 45) {
+            return new EmployeeEligibilityResponse(
+                    empId,
+                    "Employee age is " + age + ", which is between 25 and 45",
+                    "eligible"
+            );
+        }
+
+        if (age < 55) {
+            return new EmployeeEligibilityResponse(
+                    empId,
+                    "Employee age is " + age + ", which is between 46 and 54",
+                    "still consideration"
+            );
+        }
+
+        return new EmployeeEligibilityResponse(
+                empId,
+                "Employee age is " + age + ", which is 55 or above",
+                "ineligible"
+        );
     }
 }

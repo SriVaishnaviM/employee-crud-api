@@ -105,6 +105,31 @@ curl -X PUT http://localhost:8080/api/employees/101 \
 curl -X DELETE http://localhost:8080/api/employees/101
 ```
 
+### Get Employee Eligibility By ID
+
+```bash
+curl http://localhost:8080/api/employees/101/eligibility
+```
+
+Eligibility is calculated using the employee date of birth:
+
+```text
+Age below 25       -> ineligible
+Age 25 to 45       -> eligible
+Age 46 to 54       -> still consideration
+Age 55 and above   -> ineligible
+```
+
+Example JSON response:
+
+```json
+{
+  "empId": 101,
+  "reason": "Employee age is 31, which is between 25 and 45",
+  "output": "eligible"
+}
+```
+
 ## Test APIs With Bruno
 
 A Bruno collection is included in:
@@ -129,6 +154,7 @@ The collection includes:
 - `Create Employee`
 - `Update Employee By ID`
 - `Delete Employee By ID`
+- `Get Employee Eligibility`
 - `Duplicate Employee ID Error`
 - `Delete Missing Employee Error`
 - `Empty Employee Details Error`
@@ -145,14 +171,30 @@ Recommended test flow:
    Expected result: `200 OK`.
 5. Run `Delete Employee By ID`.
    Expected result: `200 OK`.
-6. Run `Duplicate Employee ID Error`.
+6. Run `Get Employee Eligibility`.
+   Expected result: `200 OK`.
+7. Run `Duplicate Employee ID Error`.
    Expected result: `409 Conflict` because the employee ID already exists.
-7. Run `Delete Missing Employee Error`.
+8. Run `Delete Missing Employee Error`.
    Expected result: `404 Not Found` because employee `9999` does not exist.
-8. Run `Empty Employee Details Error`.
+9. Run `Empty Employee Details Error`.
    Expected result: `400 Bad Request` with validation errors.
 
 ## Bruno Test Screenshots
+
+Add Bruno screenshots in the `docs/screenshots` folder using these file names:
+
+```text
+docs/screenshots/01-create-employee.png
+docs/screenshots/02-get-all-employees.png
+docs/screenshots/03-get-employee-by-id.png
+docs/screenshots/04-update-employee.png
+docs/screenshots/05-delete-employee.png
+docs/screenshots/06-duplicate-id-error.png
+docs/screenshots/07-delete-missing-id-error.png
+docs/screenshots/08-empty-employee-error.png
+docs/screenshots/09-get-employee-eligibility.png
+```
 
 ### 1. Create Employee
 
@@ -201,6 +243,12 @@ Expected result: `404 Not Found`
 Expected result: `400 Bad Request`
 
 ![Empty Employee Details Bruno Test](docs/screenshots/08-empty-employee-error.png)
+
+### 9. Get Employee Eligibility
+
+Expected result: `200 OK`
+
+![Get Employee Eligibility Bruno Test](docs/screenshots/09-get-employee-eligibility.png)
 
 ## Example JSON Output
 

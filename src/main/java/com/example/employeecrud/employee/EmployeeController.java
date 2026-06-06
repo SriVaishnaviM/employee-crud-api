@@ -35,6 +35,11 @@ public class EmployeeController {
         return employeeService.getEmployeeById(empId);
     }
 
+    @GetMapping("/{empId}/eligibility")
+    public EmployeeEligibilityResponse getEmployeeEligibility(@PathVariable Long empId) {
+        return employeeService.getEmployeeEligibility(empId);
+    }
+
     @PostMapping
     public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee) {
         Employee createdEmployee = employeeService.createEmployee(employee);
