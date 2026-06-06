@@ -1,4 +1,4 @@
-package com.example.employeecrud.employee;
+package com.example.employeecrud.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
