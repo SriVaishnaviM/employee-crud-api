@@ -1,0 +1,35 @@
+package rules
+
+import com.example.employeecrud.dto.EmployeeEligibilityFact;
+
+rule "Employee below 25 is ineligible"
+when
+    $fact : EmployeeEligibilityFact(age < 25)
+then
+    $fact.setOutput("ineligible");
+    $fact.setReason("Employee age is " + $fact.getAge() + ", which is below 25");
+end
+
+rule "Employee between 25 and 45 is eligible"
+when
+    $fact : EmployeeEligibilityFact(age >= 25 && age <= 45)
+then
+    $fact.setOutput("eligible");
+    $fact.setReason("Employee age is " + $fact.getAge() + ", which is between 25 and 45");
+end
+
+rule "Employee between 46 and 54 is still consideration"
+when
+    $fact : EmployeeEligibilityFact(age > 45 && age < 55)
+then
+    $fact.setOutput("still consideration");
+    $fact.setReason("Employee age is " + $fact.getAge() + ", which is between 46 and 54");
+end
+
+rule "Employee 55 and above is ineligible"
+when
+    $fact : EmployeeEligibilityFact(age >= 55)
+then
+    $fact.setOutput("ineligible");
+    $fact.setReason("Employee age is " + $fact.getAge() + ", which is 55 or above");
+end

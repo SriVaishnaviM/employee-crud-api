@@ -1,10 +1,13 @@
 package com.example.employeecrud.service;
 
+import com.example.employeecrud.dto.EmployeeEligibilityFact;
 import com.example.employeecrud.dto.EmployeeEligibilityResponse;
 import com.example.employeecrud.entity.Employee;
 import com.example.employeecrud.exception.DuplicateEmployeeException;
 import com.example.employeecrud.exception.EmployeeNotFoundException;
 import com.example.employeecrud.repository.EmployeeRepository;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,9 +18,11 @@ import java.util.List;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final KieContainer kieContainer;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, KieContainer kieContainer) {
         this.employeeRepository = employeeRepository;
+        this.kieContainer = kieContainer;
     }
 
     public List<Employee> getAllEmployees() {
@@ -56,34 +61,20 @@ public class EmployeeService {
         Employee employee = getEmployeeById(empId);
         int age = Period.between(employee.getDateOfBirth(), LocalDate.now()).getYears();
 
-        if (age < 25) {
-            return new EmployeeEligibilityResponse(
-                    empId,
-                    "Employee age is " + age + ", which is below 25",
-                    "ineligible"
-            );
-        }
+        EmployeeEligibilityFact fact = new EmployeeEligibilityFact(empId, age);
 
-        if (age <= 45) {
-            return new EmployeeEligibilityResponse(
-                    empId,
-                    "Employee age is " + age + ", which is between 25 and 45",
-                    "eligible"
-            );
-        }
-
-        if (age < 55) {
-            return new EmployeeEligibilityResponse(
-                    empId,
-                    "Employee age is " + age + ", which is between 46 and 54",
-                    "still consideration"
-            );
+        KieSession kieSession = kieContainer.newKieSession();
+        try {
+            kieSession.insert(fact);
+            kieSession.fireAllRules();
+        } finally {
+            kieSession.dispose();
         }
 
         return new EmployeeEligibilityResponse(
-                empId,
-                "Employee age is " + age + ", which is 55 or above",
-                "ineligible"
+                fact.getEmpId(),
+                fact.getReason(),
+                fact.getOutput()
         );
     }
 }
